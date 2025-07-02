@@ -6,17 +6,13 @@ on:
       - 'v*'
 
 jobs:
-  release:
+  create-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: make
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -28,13 +24,25 @@ jobs:
           draft: false
           prerelease: false
 
+  build-and-upload:
+    needs: create-release
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: make
+
       - name: Upload Release Asset
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
           asset_path: ./bin/snake
-          asset_name: snake
+          asset_name: snake-${{ matrix.os }}
           asset_content_type: application/octet-stream

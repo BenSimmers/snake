@@ -2,27 +2,15 @@
 
 ## Installation
 
-You can download the latest release from the [releases page](https://github.com/BenSimmers/snake/releases).
-
-Or using `curl`:
+To install the latest version of `snake`, run the following command:
 
 ```bash
-curl -sL -o snake $(curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d '"')
+curl -sL https://raw.githubusercontent.com/BenSimmers/snake/main/install.sh | bash
 ```
 
-Or using `wget`:
+This will download the correct binary for your operating system, make it executable, and place it in your current directory.
 
-```bash
-wget -O snake $(curl -s https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d '"')
-```
-
-After downloading, make the binary executable:
-
-```bash
-chmod +x snake
-```
-
-And run it:
+After installation, you can run the game with:
 
 ```bash
 ./snake
