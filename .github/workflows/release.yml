@@ -25,6 +25,8 @@ jobs:
           prerelease: false
 
   build-and-upload:
+    permissions:
+      contents: write
     needs: create-release
     strategy:
       matrix:
