@@ -4,9 +4,6 @@
 
 set -e
 
-# Get the latest release information from the GitHub API.
-LATEST_RELEASE=$(curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest)
-
 # Determine the user's operating system.
 if [[ "$(uname)" == "Darwin" ]]; then
   OS="macos-latest"
@@ -18,10 +15,10 @@ else
 fi
 
 # Get the download URL for the correct binary.
-DOWNLOAD_URL=$(echo "$LATEST_RELEASE" | grep "browser_download_url.*snake-$OS" | cut -d : -f 2,3 | tr -d '" ')
+DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake-$OS" | cut -d : -f 2,3 | tr -d '\"[:space:]')
 
 if [ -z "$DOWNLOAD_URL" ]; then
-  echo "Could not find a release for your operating system." >&2
+  echo "Could not find a release for your operating system. Please check https://github.com/BenSimmers/snake/releases" >&2
   exit 1
 fi
 
