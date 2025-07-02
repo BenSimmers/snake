@@ -1,22 +1,29 @@
-# linux-container-env
+# snake
 
-## Overview
-This project provides a Docker image for a customizable development environment. It is based on the `buildpack-deps` image and includes a variety of essential tools for development.
+## Installation
 
-## Prerequisites
-- [Docker](https://www.docker.com/get-started) installed on your machine.
+You can download the latest release from the [releases page](https://github.com/BenSimmers/snake/releases).
 
-## Build Instructions
-To build the Docker image, run the following command in the directory containing the Dockerfile:
+Or using `curl`:
 
 ```bash
-docker build -t my-dev-container .
+curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d \" | wget -qi -
 ```
 
-## Run Instructions
-To run the Docker container, run the following command:
+Or using `wget`:
 
 ```bash
-docker run -v $HOME:/home/bensimmersdev my-dev-container
+wget $(curl -s https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d \")
 ```
-Or use Visual Studio Code's Remote - Containers extension to use the container as a development environment.
+
+After downloading, make the binary executable:
+
+```bash
+chmod +x snake
+```
+
+And run it:
+
+```bash
+./snake
+```
