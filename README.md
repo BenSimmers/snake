@@ -7,13 +7,13 @@ You can download the latest release from the [releases page](https://github.com/
 Or using `curl`:
 
 ```bash
-curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+curl -sL -o snake $(curl -sL https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d '"')
 ```
 
 Or using `wget`:
 
 ```bash
-wget $(curl -s https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d \")
+wget -O snake $(curl -s https://api.github.com/repos/BenSimmers/snake/releases/latest | grep "browser_download_url.*snake" | cut -d : -f 2,3 | tr -d '"')
 ```
 
 After downloading, make the binary executable:
