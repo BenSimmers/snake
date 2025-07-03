@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   create-release:
@@ -30,15 +30,16 @@ jobs:
     needs: create-release
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        # Define the operating systems for which the build will be performed
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        # Ensure the code is checked out to the runner
       - name: Build
         run: make
-
+        # Build the project using the Makefile
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
