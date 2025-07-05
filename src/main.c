@@ -37,6 +37,12 @@ int main()
     while (true)
     {
         pressed = wgetch(win);
+
+        if (pressed == 'q' || pressed == 27) // 'q' key or ESC key
+        {
+            break;
+        }
+
         handleInput(pressed, &dirX, &dirY);
 
         updateSnake(snake, &length, dirX, dirY);

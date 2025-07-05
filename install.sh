@@ -9,6 +9,10 @@ if [[ "$(uname)" == "Darwin" ]]; then
   OS="macos-latest"
 elif [[ "$(uname)" == "Linux" ]]; then
   OS="ubuntu-latest"
+elif [[ "$(uname)" == "MINGW64_NT"* ]] || [[ "$(uname)" == "MSYS_NT"* ]]; then
+  OS="windows-latest"
+elif [[ "$(uname)" == "CYGWIN_NT"* ]]; then
+  OS="windows-latest"
 else
   echo "Unsupported operating system: $(uname)" >&2
   exit 1
